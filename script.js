@@ -1,22 +1,25 @@
-const $ = document
-const divElem = $.querySelector('#text')
+const divElem = document.querySelector('#text')
 
-let Text = "Everything you can type...!"
+const text = "Everything you can type...!"
 let i = 0
 let isDeleting = false
 
 const typeWriter = () => {
-    if (!isDeleting && i < Text.length) {
-        divElem.innerHTML += Text[i]
+    if (!isDeleting && i < text.length) {
+        divElem.textContent += text[i]
         i++
-        setTimeout(typeWriter, 100)
+        setTimeout(() => {
+            requestAnimationFrame(typeWriter)
+        }, 100);
     } else if (isDeleting && i >= 0) {
-        divElem.innerHTML = Text.substring(0, i+1)
+        divElem.textContent = text.substring(0, i-1)
         i--
-        setTimeout(typeWriter, 100)
+        setTimeout(() => {
+            requestAnimationFrame(typeWriter)
+        }, 100);
     }
 
-    if (i === Text.length) {
+    if (i === text.length) {
         setTimeout(() => {
             isDeleting = true
         }, 1000);
